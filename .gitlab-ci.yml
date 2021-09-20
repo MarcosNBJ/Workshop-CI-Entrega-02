@@ -1,0 +1,13 @@
+image: docker
+
+services:
+  - docker:dind
+
+before_script:
+  - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+
+build-frontend:
+  stage: build
+  script:
+    - docker build -f ./frontend/Dockerfile -t "$CI_REGISTRY_IMAGE" ./frontend
+    - docker push "$CI_REGISTRY_IMAGE"
