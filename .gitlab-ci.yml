@@ -4,34 +4,47 @@ services:
   - docker:dind
 
 before_script:
+  - echo 'Logging to dockerhub.'
   - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
 
 
 build-backend:
   stage: build
   script:
+    - echo 'Bulding image for backend.'
     - docker build -f ./backend/Dockerfile -t workshop-ci-entrega-02_backend -t "$CI_REGISTRY_IMAGE_BACK" ./backend
+    - echo 'Pushing backend image to dockerhub.'
     - docker push --all-tags "$CI_REGISTRY_IMAGE_BACK"
+    - echo 'Backend image was successfully built and pushed to dockerhub.'
 
 
 build-frontend:
   stage: build
   script:
+    - echo 'Bulding image for frontend.'
     - docker build -f ./frontend/Dockerfile -t workshop-ci-entrega-02_frontend -t "$CI_REGISTRY_IMAGE_FRONT" ./frontend
+    - echo 'Pushing frontend image to dockerhub.'
     - docker push --all-tags "$CI_REGISTRY_IMAGE_FRONT"
+    - echo 'Frontend image was successfully built and pushed to dockerhub.'
 
 backend-tests:
   image: docker/compose
   stage: test
   script:
+    - echo 'Pulling latest built backend image from dockerhub.'
     - docker pull $CI_REGISTRY_IMAGE_BACK
     - docker tag $CI_REGISTRY_IMAGE_BACK workshop-ci-entrega-02_backend
+    - echo 'Running backend tests.'
     - docker-compose run --entrypoint "npm run unittest" backend
+    - echo 'Backend tests have finished successfully.'
 
 frontend-tests:
   image: docker/compose
   stage: test
   script:
+    - echo 'Pulling latest built frontend image from dockerhub.'
     - docker pull $CI_REGISTRY_IMAGE_FRONT
     - docker tag $CI_REGISTRY_IMAGE_FRONT workshop-ci-entrega-02_frontend
+    - echo 'Running frontend tests.'
     - docker-compose run --entrypoint "npm run test" frontend
+    - echo 'Frontend tests have finished successfully.'
