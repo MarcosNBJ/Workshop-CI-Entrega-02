@@ -9,5 +9,5 @@ before_script:
 build-frontend:
   stage: build
   script:
-    - docker build -f ./frontend/Dockerfile -t "$CI_REGISTRY_IMAGE" ./frontend
-    - docker push "$CI_REGISTRY_IMAGE"
+    - docker build -f ./frontend/Dockerfile -t "$CI_REGISTRY_IMAGE_FRONT" ./frontend
+    - docker push "$CI_REGISTRY_IMAGE_FRONT"
