@@ -19,3 +19,15 @@ build-frontend:
   script:
     - docker build -f ./frontend/Dockerfile -t "$CI_REGISTRY_IMAGE_FRONT" ./frontend
     - docker push "$CI_REGISTRY_IMAGE_FRONT"
+
+backend-tests:
+  image: docker/compose
+  stage: tests
+  script:
+    - docker-compose run --entrypoint "npm run unittest" backend
+
+frontend-tests:
+  image: docker/compose
+  stage: tests
+  script:
+    - docker-compose run --entrypoint "npm run test" frontend
