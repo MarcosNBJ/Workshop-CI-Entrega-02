@@ -10,14 +10,14 @@ before_script:
 build-backend:
   stage: build
   script:
-    - docker build -f ./backend/Dockerfile -t "$CI_REGISTRY_IMAGE_BACK" ./backend
+    - docker build -f ./backend/Dockerfile  ./backend
     - docker push "$CI_REGISTRY_IMAGE_BACK"
 
 
 build-frontend:
   stage: build
   script:
-    - docker build -f ./frontend/Dockerfile -t "$CI_REGISTRY_IMAGE_FRONT" ./frontend
+    - docker build -f ./frontend/Dockerfile  ./frontend
     - docker push "$CI_REGISTRY_IMAGE_FRONT"
 
 backend-tests:
