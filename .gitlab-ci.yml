@@ -22,12 +22,12 @@ build-frontend:
 
 backend-tests:
   image: docker/compose
-  stage: tests
+  stage: test
   script:
     - docker-compose run --entrypoint "npm run unittest" backend
 
 frontend-tests:
   image: docker/compose
-  stage: tests
+  stage: test
   script:
     - docker-compose run --entrypoint "npm run test" frontend
