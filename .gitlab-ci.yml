@@ -4,10 +4,7 @@ services:
   - docker:dind
 
 before_script:
-  - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
-
-build-frontend:
-  stage: build
-  script:
-    - docker build -f ./frontend/Dockerfile -t "$CI_REGISTRY_IMAGE_FRONT" ./frontend
-    - docker push "$CI_REGISTRY_IMAGE_FRONT"
+  - echo "$CI_REGISTRY_USER" 
+  - echo "$CI_REGISTRY_PASSWORD" 
+  - echo $CI_REGISTRY
+  - echo docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
