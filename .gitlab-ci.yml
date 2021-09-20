@@ -12,9 +12,9 @@ build-backend:
   stage: build
   script:
     - echo 'Bulding image for backend.'
-    - docker build -f ./backend/Dockerfile -t workshop-ci-entrega-02_backend -t "$CI_REGISTRY_IMAGE_BACK" ./backend
+    - docker build -f ./backend/Dockerfile -t "$CI_REGISTRY_IMAGE_BACK" ./backend
     - echo 'Pushing backend image to dockerhub.'
-    - docker push --all-tags "$CI_REGISTRY_IMAGE_BACK"
+    - docker push "$CI_REGISTRY_IMAGE_BACK"
     - echo 'Backend image was successfully built and pushed to dockerhub.'
 
 
@@ -22,9 +22,9 @@ build-frontend:
   stage: build
   script:
     - echo 'Bulding image for frontend.'
-    - docker build -f ./frontend/Dockerfile -t workshop-ci-entrega-02_frontend -t "$CI_REGISTRY_IMAGE_FRONT" ./frontend
+    - docker build -f ./frontend/Dockerfile -t "$CI_REGISTRY_IMAGE_FRONT" ./frontend
     - echo 'Pushing frontend image to dockerhub.'
-    - docker push --all-tags "$CI_REGISTRY_IMAGE_FRONT"
+    - docker push "$CI_REGISTRY_IMAGE_FRONT"
     - echo 'Frontend image was successfully built and pushed to dockerhub.'
 
 backend-tests:
