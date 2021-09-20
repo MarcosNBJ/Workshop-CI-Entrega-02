@@ -24,10 +24,12 @@ backend-tests:
   image: docker/compose
   stage: test
   script:
+    - docker pull $CI_REGISTRY_IMAGE_BACK
     - docker-compose run --entrypoint "npm run unittest" backend
 
 frontend-tests:
   image: docker/compose
   stage: test
   script:
+    - docker pull $CI_REGISTRY_IMAGE_FRONT
     - docker-compose run --entrypoint "npm run test" frontend
