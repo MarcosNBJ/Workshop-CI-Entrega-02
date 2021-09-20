@@ -10,14 +10,14 @@ before_script:
 build-backend:
   stage: build
   script:
-    - docker build -f ./backend/Dockerfile  ./backend
+    - docker build -f ./backend/Dockerfile -t workshop-ci-entrega-02_backend -t "$CI_REGISTRY_IMAGE_BACK" ./backend
     - docker push "$CI_REGISTRY_IMAGE_BACK"
 
 
 build-frontend:
   stage: build
   script:
-    - docker build -f ./frontend/Dockerfile  ./frontend
+    - docker build -f ./frontend/Dockerfile -t workshop-ci-entrega-02_frontend -t "$CI_REGISTRY_IMAGE_FRONT" ./frontend
     - docker push "$CI_REGISTRY_IMAGE_FRONT"
 
 backend-tests:
