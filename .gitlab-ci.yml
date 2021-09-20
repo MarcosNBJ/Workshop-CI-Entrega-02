@@ -25,6 +25,7 @@ backend-tests:
   stage: test
   script:
     - docker pull $CI_REGISTRY_IMAGE_BACK
+    - docker tag $CI_REGISTRY_IMAGE_BACK workshop-ci-entrega-02_backend
     - docker-compose run --entrypoint "npm run unittest" backend
 
 frontend-tests:
@@ -32,4 +33,5 @@ frontend-tests:
   stage: test
   script:
     - docker pull $CI_REGISTRY_IMAGE_FRONT
+    - docker tag $CI_REGISTRY_IMAGE_FRONT workshop-ci-entrega-02_frontend
     - docker-compose run --entrypoint "npm run test" frontend
